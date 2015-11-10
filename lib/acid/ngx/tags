@@ -1,0 +1,51 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+_M.close	http.lua	/^function _M.close( self )$/;"	f
+_M.download	stoproxy.lua	/^function _M.download(urls)$/;"	f
+_M.finish_request	http.lua	/^function _M.finish_request( self )$/;"	f
+_M.multi_part	stoproxy.lua	/^function _M.multi_part(range, parts, opts)$/;"	f
+_M.new	http.lua	/^function _M.new( _, ip, port, timeout )$/;"	f
+_M.parse_http_range	stoproxy.lua	/^function _M.parse_http_range(range_header, size)$/;"	f
+_M.read_body	http.lua	/^function _M.read_body( self, size )$/;"	f
+_M.request	http.lua	/^function _M.request( self, uri, opts )$/;"	f
+_M.send_body	http.lua	/^function _M.send_body( self, body )$/;"	f
+_M.send_request	http.lua	/^function _M.send_request( self, uri, opts )$/;"	f
+_M.serialize_http_range	stoproxy.lua	/^function _M.serialize_http_range(range)$/;"	f
+_M.set_keepalive	http.lua	/^function _M.set_keepalive( self, timeout, size )$/;"	f
+_M.set_timeout	http.lua	/^function _M.set_timeout( self, time )$/;"	f
+_load_resp_headers	http.lua	/^local function _load_resp_headers( self )$/;"	f
+_load_resp_status	http.lua	/^local function _load_resp_status( self )$/;"	f
+_next_chunk	http.lua	/^local function _next_chunk( self )$/;"	f
+_norm_headers	http.lua	/^local function _norm_headers( headers )$/;"	f
+_read	http.lua	/^local function _read( self, size )$/;"	f
+_read_chunk	http.lua	/^local function _read_chunk( self, size )$/;"	f
+_read_chunk_size	http.lua	/^local function _read_chunk_size( self )$/;"	f
+_read_line	http.lua	/^local function _read_line( self )$/;"	f
+_trim	http.lua	/^local function _trim( s )$/;"	f
+abort_cb	stoproxy.lua	/^    local function abort_cb()$/;"	f
+collect	stoproxy.lua	/^local function collect(is_running, http)$/;"	f
+discard_lines_until	http.lua	/^local function discard_lines_until( self, sequence )$/;"	f
+get_auth_query_string	stoproxy.lua	/^local function get_auth_query_string(loc) --{{{$/;"	f
+http_connect_backend	stoproxy.lua	/^local function http_connect_backend(req)$/;"	f
+http_connect_sto	stoproxy.lua	/^local function http_connect_sto(req)$/;"	f
+install_on_abort	stoproxy.lua	/^local function install_on_abort()$/;"	f
+install_status_headers	stoproxy.lua	/^local function install_status_headers(range)$/;"	f
+is_running	stoproxy.lua	/^    local function is_running()$/;"	f
+local is_running 	stoproxy.lua	/^                local is_running = function()$/;"	f
+log_str	stoproxy.lua	/^local function log_str(logs)$/;"	f
+make_download_parts	stoproxy.lua	/^local function make_download_parts(range, parts)$/;"	f
+make_http_arg	stoproxy.lua	/^local function make_http_arg( loc, opts )$/;"	f
+make_http_connect_arg	stoproxy.lua	/^local function make_http_connect_arg( loc, opts )$/;"	f
+normalize_range	stoproxy.lua	/^local function normalize_range(range, parts)$/;"	f
+ph	stoproxy.lua	/^local function ph(val)$/;"	f
+pipe_to_client	stoproxy.lua	/^local function pipe_to_client(is_running, http)$/;"	f
+quit_err	stoproxy.lua	/^local function quit_err()$/;"	f
+quit_err	stoproxy.lua	/^local function quit_err(err, errmes)$/;"	f
+quit_err	stoproxy.lua	/^local function quit_err(httpcode, errmes)$/;"	f
+set_log_str	stoproxy.lua	/^local function set_log_str(logs)$/;"	f
+to_str	http.lua	/^local function to_str(...)$/;"	f
+transfer_part	stoproxy.lua	/^local function transfer_part(is_running, part, opts, logs)$/;"	f
