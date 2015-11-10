@@ -103,25 +103,33 @@ local function make_download_parts(range, parts)
 
     for _, p in ipairs(parts) do
 
-        if offset >= p.offset and offset < p.offset + p.size then
-
+        if range.total == nil then
             local dl = {
-                offset = offset - p.offset,
-                size = math.min(size, p.size),
+                offset = nil,
+                size = nil,
                 urls = p.urls,
             }
 
-            if dl.size > 0 then
-                table.insert(rst, dl)
+            table.insert(rst, dl)
+        else
+            if offset >= p.offset and offset < p.offset + p.size then
 
-                offset = offset + dl.size
-                size = size - dl.size
+                local dl = {
+                    offset = offset - p.offset,
+                    size = math.min(size, p.size),
+                    urls = p.urls,
+                }
+                if dl.size > 0 then
+                    table.insert(rst, dl)
 
-                if size == 0 then
-                    break
+                    offset = offset + dl.size
+                    size = size - dl.size
+
+                    if size == 0 then
+                        break
+                    end
                 end
             end
-
         end
     end
 
@@ -130,7 +138,9 @@ end
 local function install_status_headers(range)
     if range.offset == nil then
         ngx.status = 200
-        ngx.header['Content-Length'] = tostring(range.total)
+        if range.total ~= nil then
+            ngx.header['Content-Length'] = tostring(range.total)
+        end
     else
         ngx.status = 206
         ngx.header['Content-Length'] = tostring(range.size)
@@ -228,39 +238,23 @@ local function transfer_part(is_running, part, opts, logs)
     -- }
 
     local p = part
-    local from = p.offset
-    local to = p.offset + p.size
     local sent = 0
 
     for _, loc in ipairs(p.urls) do
         -- <ip>:<port>/...
 
-        if from == to then
-            break
-        end
-
-        if from > to then
-            -- bug!
-            ngx.log(ngx.ERR, "from > to: ", from, '>', to)
-            ngx.exit(499)
-        end
-
         local req = make_http_connect_arg( loc, opts )
-        -- Range: bytes=<from>-<to>
-        -- <to> is inclusive
-        req.headers.Range = 'bytes=' .. from .. '-' .. (to-1)
 
         local t0 = ngx.now()
         local http, err, errmes = http_connect_backend( req )
         local tconn = (ngx.now() - t0)
 
-        if err == nil and http.status ~= 206 then
+        if err == nil and http.status ~= 200 then
             err, errmes = "InvalidResponse", "http code is " .. tostring(http.status)
         end
 
         local logentry = {
             ip=req.ip, port=req.port, uri=req.url, status=http.status, err=err,
-            range = {from=from, to=to},
             time = {
                 conn = tconn,
             },
@@ -278,7 +272,6 @@ local function transfer_part(is_running, part, opts, logs)
             end
 
             -- with or without err:
-            from = from + r.sent
             sent = sent + r.sent
 
             logentry.sent = r.sent
@@ -288,12 +281,7 @@ local function transfer_part(is_running, part, opts, logs)
         end
     end
 
-    -- after all remote peers being tried, there is still some data unfetched.
-    if from == to then
-        return sent, nil, nil
-    else
-        return sent, 'InvalidResponse', nil
-    end
+    return sent, nil, nil
 end
 local function set_log_str(logs)
     if ngx.var.log_sto ~= nil then

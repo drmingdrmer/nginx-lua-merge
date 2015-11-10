@@ -1,0 +1,4 @@
+#!/bin/sh
+
+curl -v "localhost:9000/abc??x.js;y.js"
+
